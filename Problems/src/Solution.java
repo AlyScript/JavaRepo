@@ -8,7 +8,53 @@ import java.util.Stack;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        System.out.println(range(10,20,3));
+
+    }
+
+    public int romanToInt(String s) {
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+        int result = 0;
+        hashMap.put('I', 1);
+        hashMap.put('V', 5);
+        hashMap.put('X', 10);
+        hashMap.put('L', 50);
+        hashMap.put('C', 100);
+        hashMap.put('D', 500);
+        hashMap.put('M', 1000);
+        for (Character c : s.toCharArray()) {
+            
+            result += hashMap.get(c);
+        }   
+        return result;     
+    }
+
+    public int countKDifference(int[] nums, int k) {
+        int count = 0;
+        for(int i=0; i<nums.length; i++) {
+            for(int j=0; j<nums.length; j++) {
+                int abs = Math.abs(nums[i] - nums[j]);
+                if(abs == k && i<j) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public char findTheDifference(String s, String t) {
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+        for(Character c : s.toCharArray()) {
+            hashMap.put(c, hashMap.getOrDefault(c, 0) + 1);
+        }
+        for (Character c : t.toCharArray()) {
+            if(hashMap.containsKey(c) && hashMap.get(c) == 0 || !hashMap.containsKey(c)) {
+                return c;
+            }
+            else {
+                hashMap.put(c, hashMap.get(c) - 1);
+            }
+        }
+        return 'n';
     }
 
     static List<Integer> range(int start, int end, int step) {
@@ -138,16 +184,11 @@ public class Solution {
     }
 
     static int[] smallerNumbersThanCurrent(int[] nums) {
-        HashMap<Integer, Integer> hashMap = new HashMap<>();
-        Arrays.sort(nums);
         int[] output_arr = new int[nums.length];
-        for (int i : nums) {
-            hashMap.put(i, hashMap.getOrDefault(i, 0) + 1);
-        }
         for(int i=0; i<nums.length; i++) {
-            for(int j=0; j<nums.length-1; j++) {
-                if(nums[j] < nums[i] && i!=j && nums[j] != nums[j+1]) {
-                    output_arr[i] += hashMap.get(nums[j]);
+            for(int j=0; j<nums.length; j++) {
+                if(nums[j] < nums[i] && j!=i) {
+                    output_arr[i]++;
                 }
             }
         }
