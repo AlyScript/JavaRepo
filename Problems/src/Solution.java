@@ -8,7 +8,30 @@ import java.util.Stack;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        int rotationFactor = 2;
+        System.out.println(rotate(list, rotationFactor));
+    }
 
+    static List<Integer> rotate(List<Integer> list, int rotationFactor) {
+        for (int i = 0; i < rotationFactor; i++) {
+            
+            // storing the last element in the list
+            int temp = list.get(list.size()-1);
+            
+            // traverse the list and move elements to right
+            for (int j = list.size()-1; j > 0; j--) {
+                list.set(j, list.get(j - 1));
+            }
+            list.set(0, temp);
+        }
+        return list;
     }
 
     public int romanToInt(String s) {
@@ -80,14 +103,14 @@ public class Solution {
     }
 
     static double get_price(String item) {
-        switch(item) {
-            case "Big Mac": return 3.39; 
-            case "Hamburger": return 0.89; 
-            case "Filet-O-Fish": return 3.29; 
-            case "Crispy Chicken Salad": return 2.99; 
-            case "Medium Fries": return 1.19;  
-        }
-        return 0.0;  
+        HashMap<String, Double> hashMap = new HashMap<>();
+        hashMap.put("Big Mac", 3.39);
+        hashMap.put("Hamburger", 0.89);
+        hashMap.put("Filet-O-Fish", 3.29);
+        hashMap.put("Crispy Chicken Salad", 2.99);
+        hashMap.put("Medium Fries", 1.19);
+        if(hashMap.containsKey(item)) return hashMap.get(item);
+        return 0.0;
     }
 
     public int countConsistentStrings(String allowed, String[] words) {
