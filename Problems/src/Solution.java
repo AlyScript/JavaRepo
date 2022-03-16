@@ -19,13 +19,10 @@ public class Solution {
         System.out.println(rotate(list, rotationFactor));
     }
 
+    // rotating items in a list
     static List<Integer> rotate(List<Integer> list, int rotationFactor) {
         for (int i = 0; i < rotationFactor; i++) {
-            
-            // storing the last element in the list
             int temp = list.get(list.size()-1);
-            
-            // traverse the list and move elements to right
             for (int j = list.size()-1; j > 0; j--) {
                 list.set(j, list.get(j - 1));
             }
